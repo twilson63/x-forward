@@ -1,0 +1,16 @@
+{
+  "name": "x-forward",
+  "version": "0.0.1",
+  "dependencies": {
+    "request": "~2.30.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "supertest": "~0.8.2",
+    "nock": "~0.27.1",
+    "express": "~3.4.7"
+  }
+}
