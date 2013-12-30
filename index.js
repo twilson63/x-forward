@@ -2,6 +2,13 @@ var express = require('express');
 var app = express();
 var request = require('request');
 
+// usage
+//
+// app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
+//   //...auth logic here...;
+// }));
+
+
 module.exports = function(pattern, host, auth) {
   return function(req, res, next) {
     // if no auth method proceed, if auth method test

@@ -14,7 +14,7 @@ describe('forward', function() {
   describe('with auth', function() {
     it('should redirect /db/foo', function(done) {
       var app = express();
-      app.use(forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
+      app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
         return true;
       }));
 
@@ -25,7 +25,7 @@ describe('forward', function() {
     });
     it('should not redirect /db/bar', function(done) {
       var app = express();
-      app.use(forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
+      app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
         return false;
       }));
 
@@ -38,7 +38,7 @@ describe('forward', function() {
   describe('without auth', function() {
     it('should redirect /db/foo', function(done) {
       var app = express();
-      app.use(forward(/\/db\/(.*)/, 'http://localhost:5984'));
+      app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984'));
 
       request(app)
         .get('/db/foo')

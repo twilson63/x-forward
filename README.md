@@ -6,7 +6,7 @@ This is some express middleware that creates a forward proxy.
 
 ``` js
 var app = express();
-app.use(forward(/\/db\/(.*)/, 'http://localhost:5984'));
+app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984'));
 ```
 
 In this example, all requests to /db will be redirected to 
