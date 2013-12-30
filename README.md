@@ -6,7 +6,21 @@ This is some express middleware that creates a forward proxy.
 
 ``` js
 var app = express();
-app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984'));
+app.use('/db', forward('http://localhost:5984'));
+```
+Need to only allow access to the proxy based on specific
+criteria, just add a middleware before the proxy declaration
+for the proxy path.
+
+``` js
+var app = express();
+app.use('/db', isAuthenticated);
+app.use('/db', forward('http://localhost:5984'));
+
+function isAuthenticated(req, res, next) {
+  if (!res.session.user) { return res.send(401); }
+  next();
+}
 ```
 
 In this example, all requests to /db will be redirected to 

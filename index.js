@@ -4,22 +4,11 @@ var request = require('request');
 
 // usage
 //
-// app.use('/db', forward(/\/db\/(.*)/, 'http://localhost:5984', function () {
-//   //...auth logic here...;
-// }));
-
-
-module.exports = function(pattern, host, auth) {
+// app.use('/db', forward('http://localhost:5984'));
+//
+module.exports = function(host) {
   return function(req, res, next) {
-    // if no auth method proceed, if auth method test
-    if (!auth || auth(req)) {
-      var db_path = req.url.match(pattern)[1]
-        , db_url = [host, db_path].join('/');
-      // request pipeline...
-      req.pipe(request[req.method.toLowerCase()](db_url)).pipe(res);
-    } else {
-      // unauthorized
-      res.send(401);
-    }
+    var db_url = host + req.url;
+    req.pipe(request[req.method.toLowerCase()](db_url)).pipe(res);
   };
 };
